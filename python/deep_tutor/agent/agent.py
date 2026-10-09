@@ -97,7 +97,7 @@ try:
     _mcp_client = MultiServerMCPClient({
         "docs": {
             "url": "https://docs.langchain.com/mcp",
-            "transport": "http",
+            "transport": "streamable_http",
         }
     })
     try:
