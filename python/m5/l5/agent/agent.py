@@ -23,12 +23,33 @@ from langchain.agents.middleware import ModelRequest, dynamic_prompt
 from langchain.chat_models import init_chat_model
 from langchain_mcp_adapters.client import MultiServerMCPClient
 
+import os
+from dotenv import load_dotenv
+
+# Ensure environment variables are loaded
+load_dotenv(override=True)
+
 # ---------------------------------------------------------------------------
-# Model
+# Model configuration
 # ---------------------------------------------------------------------------
-model = init_chat_model("anthropic:claude-sonnet-4-6")
-# model = init_chat_model("openai:gpt-4o")
-# model = init_chat_model("google_genai:gemini-2.5-flash")
+def get_model():
+    """Returns the chat model configured via environment variables."""
+    provider = os.getenv("MODEL_PROVIDER", "ollama").lower()
+    if provider == "ollama":
+        from langchain_ollama import ChatOllama
+        model_name = os.getenv("OLLAMA_MODEL", "qwen2.5:7b")
+        base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+        return ChatOllama(model=model_name, base_url=base_url)
+    elif provider == "anthropic":
+        return init_chat_model(os.getenv("ANTHROPIC_MODEL", "anthropic:claude-sonnet-4-6"))
+    elif provider == "openai":
+        return init_chat_model(os.getenv("OPENAI_MODEL", "openai:gpt-4o"))
+    elif provider in ("google", "google_genai"):
+        return init_chat_model(os.getenv("GOOGLE_MODEL", "google_genai:gemini-2.5-flash"))
+    else:
+        return init_chat_model(provider)
+
+model = get_model()
 
 
 # ---------------------------------------------------------------------------
@@ -45,8 +66,9 @@ class ContextSchema:
 # ---------------------------------------------------------------------------
 @dynamic_prompt
 async def tutor_prompt(request: ModelRequest) -> str:
-    module_id = request.runtime.context.module_id
-    store_namespace = request.runtime.context.store_namespace
+    ctx = request.runtime.context
+    module_id = getattr(ctx, "module_id", "module-1") if ctx else "module-1"
+    store_namespace = getattr(ctx, "store_namespace", "") if ctx else ""
     student_name = "Student"
     goals = ""
 
@@ -70,13 +92,18 @@ async def tutor_prompt(request: ModelRequest) -> str:
 # ---------------------------------------------------------------------------
 # MCP tools
 # ---------------------------------------------------------------------------
-_mcp_client = MultiServerMCPClient({
-    "docs": {
-        "url": "https://docs.langchain.com/mcp",
-        "transport": "http",
-    }
-})
-mcp_tools = asyncio.run(_mcp_client.get_tools())
+mcp_tools = []
+try:
+    _mcp_client = MultiServerMCPClient({
+        "docs": {
+            "url": "https://docs.langchain.com/mcp",
+            "transport": "http",
+        }
+    })
+    mcp_tools = asyncio.run(_mcp_client.get_tools())
+except Exception:
+    mcp_tools = []
+
 
 
 # ---------------------------------------------------------------------------

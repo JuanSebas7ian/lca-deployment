@@ -1,6 +1,6 @@
 [agent]
 name = "deep_tutor"
-model = "anthropic:claude-sonnet-4-6"
+model = "ollama:qwen2.5:7b"
 
 # [sandbox] is optional. Omit if not needed for skills or code execution.
 # [sandbox]
