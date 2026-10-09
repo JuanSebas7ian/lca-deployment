@@ -100,9 +100,20 @@ try:
             "transport": "http",
         }
     })
-    mcp_tools = asyncio.run(_mcp_client.get_tools())
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = None
+
+    if loop is None:
+        mcp_tools = asyncio.run(_mcp_client.get_tools())
+    else:
+        import concurrent.futures
+        with concurrent.futures.ThreadPoolExecutor() as pool:
+            mcp_tools = pool.submit(asyncio.run, _mcp_client.get_tools()).result(timeout=10)
 except Exception:
     mcp_tools = []
+
 
 
 
