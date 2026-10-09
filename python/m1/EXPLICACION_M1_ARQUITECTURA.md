@@ -6,9 +6,10 @@ Este módulo explica cómo se estructura y ejecuta un sistema de agentes basado 
 
 ## 1. Las Tres Capas de la Pila
 
-1. **LangChain**: Proporciona primitivas fundamentales: integraciones de modelos (`ChatOllama`, `ChatOpenAI`), herramientas (`Tools`), esquemas de mensajes (`HumanMessage`, `AIMessage`).
+1. **LangChain**: Proporciona primitivas fundamentales: integraciones de modelos (como `ChatOllama` para ejecución local y privada con tus propios LLMs), herramientas (`Tools`), esquemas de mensajes (`HumanMessage`, `AIMessage`).
 2. **LangGraph**: El motor de orquestación de grafos. Permite crear ciclos, ramificaciones, control de estados tipados (`MessagesState`) y puntos de control (`Checkpointer`).
 3. **LangGraph Deployment (Agent Server)**: La capa de infraestructura. Convierte tu grafo en una API REST y WebSocket/SSE lista para producción con colas, trabajadores asíncronos y persistencia en base de datos.
+
 
 ---
 

@@ -52,7 +52,7 @@ OLLAMA_MODEL=qwen2.5:7b
 OLLAMA_BASE_URL=http://localhost:11434
 ```
 
-> **Nota:** Si en algún momento deseas utilizar APIs en la nube (Anthropic, OpenAI o Gemini), simplemente cambia `MODEL_PROVIDER=anthropic` (o `openai` / `google_genai`) y añade tu clave correspondiente.
+> 🦙 **Nota sobre modelos:** Por defecto todo el proyecto funciona 100% con **Ollama** (`qwen2.5:7b`) sin costo ni necesidad de credenciales de OpenAI o Anthropic. Solo si tú decides explícitamente en el futuro conectar APIs en la nube, podrías cambiar `MODEL_PROVIDER=openai` (o `anthropic` / `google_genai`) y añadir la API key respectiva.
 
 ---
 

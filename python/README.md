@@ -1,52 +1,76 @@
-# LangSmith Deployment — Python
+# LangSmith Deployment — Python (Local Ollama Edition)
 
-You can find the course at [LangSmith Deployments](https://academy.langchain.com/courses/take/langsmith-deployments).
+You can find the original course at [LangSmith Deployments](https://academy.langchain.com/courses/take/langsmith-deployments).
+
+> 🇪🇸 **Guía en Español**: Consulta [`README_ES.md`](README_ES.md) para documentación detallada en español y explicaciones paso a paso de cada módulo (M0 a M6).
+
+---
+
+## 🦙 Local Ollama Architecture
+
+This repository has been adapted to run **100% locally using Ollama** instead of requiring paid cloud APIs (OpenAI or Anthropic).
+
+- **Default Local Model**: `qwen2.5:7b` (via `http://localhost:11434`)
+- **Supported Local Alternatives**: `gemma4:12b`, `qwen2.5-coder-32b-iq4:latest`, `qwen2.5-coder:7b`
+- **Zero Paid Cloud API Requirement**: You do **not** need an `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` to run the agents, demos, or tests locally.
+
+---
 
 ## Setup
 
 ### Prerequisites
 
-- [LangSmith account](#getting-started-with-langsmith)
-  - To deploy to the cloud you will need a Plus plan or above
-    - You can deploy locally with a [Developer account (free)](https://www.langchain.com/pricing)
-- Python 3.11–3.13
-- [uv](https://docs.astral.sh/uv/) package manager — see [Installing uv](#installing-uv)
-- Docker (optional, recommended) — `langgraph deploy` uses Docker to build the container locally. Without it the CLI falls back to a remote build in LangSmith's cloud, which works fine but is slower. [Install Docker Desktop](https://www.docker.com/products/docker-desktop/).
+- **Ollama**: Installed and running locally (`curl -fsSL https://ollama.com/install.sh | sh` or desktop app).
+  - Pull the recommended model:
+    ```bash
+    ollama pull qwen2.5:7b
+    ```
+- **Python**: 3.11–3.13
+- **uv package manager**: See [Installing uv](#installing-uv)
+- **Docker** (optional, recommended): For running `langgraph dev` or full multi-container deployment (`langgraph up`).
+- **LangSmith account** (optional for local execution): Only needed if you want cloud tracing or deploying to LangSmith Cloud.
 
 ### Installation
 
-Clone the repository and move to the `python` directory:
+1. Move to the `python` directory:
 
 ```bash
-git clone https://github.com/langchain-ai/lca-deployment.git
-cd lca-deployment/python
+cd python
 ```
 
-Make a copy of `.env.example`:
+2. Configure environment variables:
 
 ```bash
 cp .env.example .env
 ```
 
-Insert API keys directly into `.env` — [LangSmith](#getting-started-with-langsmith) (required) and Anthropic (required):
+Your `.env` is pre-configured for **Ollama**:
 
 ```bash
-# LangSmith — tracing and deployment
+# Model provider configuration (Default: local Ollama)
+MODEL_PROVIDER=ollama
+OLLAMA_MODEL=qwen2.5:7b
+OLLAMA_BASE_URL=http://localhost:11434
+
+# LangSmith — tracing and deployment (Optional for local-only testing)
 LANGSMITH_API_KEY=lsv2_...
 LANGSMITH_PROJECT=lca-deployment
-
-# Model provider API keys — set the one you're using
-ANTHROPIC_API_KEY=your-anthropic-api-key
-# OPENAI_API_KEY=your-openai-api-key
-# GOOGLE_API_KEY=your-google-api-key
+LANGSMITH_TRACING=true
+DEEP_TUTOR_API_KEY=${LANGSMITH_API_KEY}
 ```
 
-Course scripts call `load_dotenv(override=True)`, so values in `.env` take precedence over any conflicting environment variables already set in your shell.
+> 💡 **Note**: Cloud providers (OpenAI, Anthropic, Google GenAI) are supported as optional fallbacks by changing `MODEL_PROVIDER`, but are **not required**.
 
-Install dependencies:
+3. Install dependencies:
 
 ```bash
 uv sync
+```
+
+4. Validate local setup and agents:
+
+```bash
+uv run python validate_local_setup.py
 ```
 
 ---
