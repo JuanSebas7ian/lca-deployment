@@ -14,6 +14,8 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel
 
+from langgraph_sdk.client import LangGraphClient
+
 from ui.agent_client import MODULES, create_client, create_student_sessions, stream_response
 from ui.deployment import get_deployment_url
 
@@ -21,10 +23,10 @@ app = FastAPI()
 
 UI_DIR = Path(__file__).parent
 
-_client_cache: dict[str, object] = {}
+_client_cache: dict[str, LangGraphClient] = {}
 
 
-def get_cached_client(deployment_url: str):
+def get_cached_client(deployment_url: str) -> LangGraphClient:
     if deployment_url not in _client_cache:
         _client_cache[deployment_url] = create_client(deployment_url)
     return _client_cache[deployment_url]
