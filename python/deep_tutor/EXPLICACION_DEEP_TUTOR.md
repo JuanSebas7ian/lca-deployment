@@ -32,7 +32,7 @@ python/deep_tutor/
 
 En [`agent/agent.py`](file:///home/juansebas7ian/Proyectos/GitHub/lca-deployment/python/deep_tutor/agent/agent.py):
 - Se lee la variable `MODEL_PROVIDER` de [`.env`](file:///home/juansebas7ian/Proyectos/GitHub/lca-deployment/python/.env) (configurada en `ollama`).
-- Se instancia automáticamente `ChatOllama(model="qwen2.5:7b")`.
+- Se instancia automáticamente `ChatOllama(model="gemma4:12b")`.
 - El prompt dinámico (`tutor_prompt`) inyecta de forma segura el contexto del módulo y del estudiante (manejando con seguridad entornos de prueba donde el contexto sea nulo).
 - Las herramientas de documentación MCP cuentan con protección ante desconexiones de red, permitiendo que el tutor funcione de forma 100% offline.
 

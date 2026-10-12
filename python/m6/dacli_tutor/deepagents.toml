@@ -1,6 +1,6 @@
 [agent]
 name = "deep_tutor"
-model = "ollama:qwen2.5:7b"
+model = "ollama:gemma4:12b"
 
 # [sandbox] is optional. Omit if not needed for skills or code execution.
 # [sandbox]

@@ -1,6 +1,6 @@
 # Curso de Despliegue de LangSmith & LangGraph — Guía en Español
 
-Bienvenido al repositorio del curso **LangSmith Deployment / LangGraph Deployment** adaptado para ejecutarse **100% en local con modelos de Ollama** (`qwen2.5:7b`).
+Bienvenido al repositorio del curso **LangSmith Deployment / LangGraph Deployment** adaptado para ejecutarse **100% en local con modelos de Ollama** (`gemma4:12b`).
 
 > 🦙 **Nota Importante sobre Modelos:** Todo este repositorio ha sido adaptado para funcionar con **Ollama** de forma local. **NO necesitas cuenta ni API keys de pago de OpenAI (`OPENAI_API_KEY`) ni de Anthropic**. Los agentes, los grafos y las pruebas se ejecutan directamente contra tu servidor de Ollama (`http://localhost:11434`).
 
@@ -9,13 +9,12 @@ Bienvenido al repositorio del curso **LangSmith Deployment / LangGraph Deploymen
 ## 🚀 Resumen de Adaptaciones Realizadas
 
 1. **Soporte Nativo de Modelos Locales (Ollama en vez de OpenAI / Anthropic)**:
-   - Configurado en [`python/.env`](file:///home/juansebas7ian/Proyectos/GitHub/lca-deployment/python/.env) con `MODEL_PROVIDER=ollama`, `OLLAMA_MODEL=qwen2.5:7b` y `OLLAMA_BASE_URL=http://localhost:11434`.
-   - Compatibilidad total con los modelos disponibles en tu equipo (`qwen2.5:7b`, `gemma4:12b`, `qwen2.5-coder-32b-iq4:latest`, `qwen2.5-coder:7b`).
-   - Se seleccionó `qwen2.5:7b` por su óptimo rendimiento en llamadas a funciones estructuradas (tool calling), velocidad y bajo consumo de memoria.
+   - Configurado en [`python/.env`](file:///home/juansebas7ian/Proyectos/GitHub/lca-deployment/python/.env) con `MODEL_PROVIDER=ollama`, `OLLAMA_MODEL=gemma4:12b` y `OLLAMA_BASE_URL=http://localhost:11434`.
+   - Compatibilidad total con los modelos configurados en tu equipo (`gemma4:12b` para chat/razonamiento/tool calling y `embeddinggemma:latest` para embeddings).
 2. **Código de Agentes Adaptado**:
    - [`python/deep_tutor/agent/agent.py`](file:///home/juansebas7ian/Proyectos/GitHub/lca-deployment/python/deep_tutor/agent/agent.py): Agente central adaptado para instanciar dinámicamente Ollama (`ChatOllama`), con manejo seguro de contexto y tolerancia ante fallos de conexión externa de herramientas MCP.
    - [`python/m5/l5/agent/agent.py`](file:///home/juansebas7ian/Proyectos/GitHub/lca-deployment/python/m5/l5/agent/agent.py): Tutor protegido con autenticación adaptado para Ollama.
-   - [`python/m6/dacli_tutor/deepagents.toml`](file:///home/juansebas7ian/Proyectos/GitHub/lca-deployment/python/m6/dacli_tutor/deepagents.toml): Configuración de Deep Agents CLI apuntando a `ollama:qwen2.5:7b`.
+   - [`python/m6/dacli_tutor/deepagents.toml`](file:///home/juansebas7ian/Proyectos/GitHub/lca-deployment/python/m6/dacli_tutor/deepagents.toml): Configuración de Deep Agents CLI apuntando a `ollama:gemma4:12b`.
 3. **Agentes y Scripts de Demostración Locales Creados**:
    - [`python/m2/local_m2_agent.py`](file:///home/juansebas7ian/Proyectos/GitHub/lca-deployment/python/m2/local_m2_agent.py): Demuestra ciclos de vida, hilos independientes y streaming con Ollama.
    - [`python/m4/l2/local_persistence_demo.py`](file:///home/juansebas7ian/Proyectos/GitHub/lca-deployment/python/m4/l2/local_persistence_demo.py): Demuestra el Checkpointer y el Store a largo plazo con Ollama.

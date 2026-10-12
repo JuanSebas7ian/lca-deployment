@@ -82,7 +82,7 @@ Este script demuestra:
 - Creación del grafo con `ChatOllama`.
 - Manejo de dos hilos independientes (`thread-1` y `thread-2`).
 - Comprobación de que el hilo 2 no tiene acceso a la información privada del hilo 1.
-- Streaming en vivo de la respuesta del modelo `qwen2.5:7b`.
+- Streaming en vivo de la respuesta del modelo `gemma4:12b`.
 
 ### 4.2 Scripts Oficiales contra el Servidor de LangGraph:
 Si tienes corriendo el servidor local de desarrollo (`langgraph dev` en `deep_tutor`):

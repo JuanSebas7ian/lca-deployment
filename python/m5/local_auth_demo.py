@@ -20,7 +20,7 @@ from langgraph.graph import END, START, MessagesState, StateGraph
 from langgraph.checkpoint.memory import MemorySaver
 
 # Modelo local
-model_name = os.getenv("OLLAMA_MODEL", "qwen2.5:7b")
+model_name = os.getenv("OLLAMA_MODEL", "gemma4:12b")
 base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 llm = ChatOllama(model=model_name, base_url=base_url)
 

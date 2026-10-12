@@ -24,10 +24,8 @@ uv sync
 El proyecto ha sido adaptado para funcionar con modelos locales servidos mediante **Ollama** en `http://localhost:11434`.
 
 ### Modelos Disponibles en tu Máquina:
-- **`qwen2.5:7b`** *(Recomendado y configurado por defecto)*: Excelente soporte para llamadas a herramientas (Tool Calling estructurado), respuestas en español fluidas y bajo consumo de memoria.
-- **`gemma4:12b`**: Gran capacidad de razonamiento y soporte nativo de function calling.
-- **`qwen2.5-coder-32b-iq4:latest`**: Modelo grande especializado en código.
-- **`qwen2.5-coder:7b`**: Modelo ligero para tareas de programación.
+- **`gemma4:12b`** *(Configurado por defecto)*: Gran capacidad de razonamiento, context window de 256k, visión, soporte de thinking y tool calling estructurado nativo.
+- **`embeddinggemma:latest`**: Modelo local de embeddings (307M params, dimensión 768) para indexación y búsqueda semántica.
 
 Verificar que Ollama esté activo:
 ```bash
@@ -48,11 +46,11 @@ DEEP_TUTOR_API_KEY=${LANGSMITH_API_KEY}
 
 # Configuración del Proveedor de Modelos
 MODEL_PROVIDER=ollama
-OLLAMA_MODEL=qwen2.5:7b
+OLLAMA_MODEL=gemma4:12b
 OLLAMA_BASE_URL=http://localhost:11434
 ```
 
-> 🦙 **Nota sobre modelos:** Por defecto todo el proyecto funciona 100% con **Ollama** (`qwen2.5:7b`) sin costo ni necesidad de credenciales de OpenAI o Anthropic. Solo si tú decides explícitamente en el futuro conectar APIs en la nube, podrías cambiar `MODEL_PROVIDER=openai` (o `anthropic` / `google_genai`) y añadir la API key respectiva.
+> 🦙 **Nota sobre modelos:** Por defecto todo el proyecto funciona 100% con **Ollama** (`gemma4:12b`) sin costo ni necesidad de credenciales de OpenAI o Anthropic. Solo si tú decides explícitamente en el futuro conectar APIs en la nube, podrías cambiar `MODEL_PROVIDER=openai` (o `anthropic` / `google_genai`) y añadir la API key respectiva.
 
 ---
 
@@ -61,5 +59,5 @@ OLLAMA_BASE_URL=http://localhost:11434
 Para verificar que tu entorno y el modelo local responden correctamente, ejecuta desde la carpeta `python/`:
 
 ```bash
-uv run python -c "from langchain_ollama import ChatOllama; llm = ChatOllama(model='qwen2.5:7b'); print(llm.invoke('Hola, confirma que el setup está listo').content)"
+uv run python -c "from langchain_ollama import ChatOllama; llm = ChatOllama(model='gemma4:12b'); print(llm.invoke('Hola, confirma que el setup está listo').content)"
 ```

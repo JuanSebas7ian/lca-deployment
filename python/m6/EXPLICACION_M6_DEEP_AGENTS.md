@@ -22,7 +22,7 @@ La configuración del agente CLI se define en [`deepagents.toml`](file:///home/j
 ```toml
 [agent]
 name = "deep_tutor"
-model = "ollama:qwen2.5:7b"
+model = "ollama:gemma4:12b"
 
 [auth]
 provider = "anonymous"
@@ -35,7 +35,7 @@ app_name = "LangChain Tutor"
 backend = "store"
 ```
 
-El proyecto ya está configurado para utilizar el modelo local **`ollama:qwen2.5:7b`**.
+El proyecto ya está configurado para utilizar el modelo local **`ollama:gemma4:12b`**.
 
 ---
 
@@ -58,7 +58,7 @@ uv run deepagents -n "Hola tutor, resume en dos puntos qué aprenderemos en este
 ### 3.3 Configuración de Modelo por Defecto:
 Ya hemos dejado configurado el modelo por defecto en el CLI para que utilice Ollama:
 ```bash
-uv run deepagents --default-model ollama:qwen2.5:7b
+uv run deepagents --default-model ollama:gemma4:12b
 ```
 
 ---

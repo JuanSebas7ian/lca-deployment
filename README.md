@@ -2,7 +2,7 @@
 
 Example code for the LangChain Academy deployment course. Find the official course at [LangSmith Deployments](https://academy.langchain.com/courses/take/langsmith-deployments).
 
-> 🦙 **Entorno Local Adaptado**: La pista de Python ha sido completamente adaptada para ejecutarse en local con **Ollama** (`qwen2.5:7b`, `ChatOllama`), **sin necesidad de claves ni costes de OpenAI o Anthropic**.
+> 🦙 **Entorno Local Adaptado**: La pista de Python ha sido completamente adaptada para ejecutarse en local con **Ollama** (`gemma4:12b`, `ChatOllama`), **sin necesidad de claves ni costes de OpenAI o Anthropic**.
 
 Students follow one of two language tracks:
 

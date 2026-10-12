@@ -19,7 +19,7 @@ async def test_ollama():
     print(f"\n{INFO} 1. Verificando conexión con Ollama...")
     try:
         from langchain_ollama import ChatOllama
-        model_name = os.getenv("OLLAMA_MODEL", "qwen2.5:7b")
+        model_name = os.getenv("OLLAMA_MODEL", "gemma4:12b")
         base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
         llm = ChatOllama(model=model_name, base_url=base_url)
         res = await llm.ainvoke("Di 'Ollama OK'")

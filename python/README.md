@@ -10,8 +10,8 @@ You can find the original course at [LangSmith Deployments](https://academy.lang
 
 This repository has been adapted to run **100% locally using Ollama** instead of requiring paid cloud APIs (OpenAI or Anthropic).
 
-- **Default Local Model**: `qwen2.5:7b` (via `http://localhost:11434`)
-- **Supported Local Alternatives**: `gemma4:12b`, `qwen2.5-coder-32b-iq4:latest`, `qwen2.5-coder:7b`
+- **Default Local Model**: `gemma4:12b` (via `http://localhost:11434`)
+- **Local Embedding Model**: `embeddinggemma:latest`
 - **Zero Paid Cloud API Requirement**: You do **not** need an `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` to run the agents, demos, or tests locally.
 
 ---
@@ -21,9 +21,9 @@ This repository has been adapted to run **100% locally using Ollama** instead of
 ### Prerequisites
 
 - **Ollama**: Installed and running locally (`curl -fsSL https://ollama.com/install.sh | sh` or desktop app).
-  - Pull the recommended model:
+  - Verify your local model:
     ```bash
-    ollama pull qwen2.5:7b
+    ollama list
     ```
 - **Python**: 3.11–3.13
 - **uv package manager**: See [Installing uv](#installing-uv)
@@ -49,7 +49,7 @@ Your `.env` is pre-configured for **Ollama**:
 ```bash
 # Model provider configuration (Default: local Ollama)
 MODEL_PROVIDER=ollama
-OLLAMA_MODEL=qwen2.5:7b
+OLLAMA_MODEL=gemma4:12b
 OLLAMA_BASE_URL=http://localhost:11434
 
 # LangSmith — tracing and deployment (Optional for local-only testing)

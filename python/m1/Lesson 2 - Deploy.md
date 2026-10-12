@@ -81,7 +81,7 @@ Esa llamada hacia el propio servidor requiere autenticación:
 > 🦙 **Nota de Modelos Locales (Ollama):** Para la ejecución del LLM, el archivo `.env` está configurado con:
 > ```bash
 > MODEL_PROVIDER=ollama
-> OLLAMA_MODEL=qwen2.5:7b
+> OLLAMA_MODEL=gemma4:12b
 > OLLAMA_BASE_URL=http://localhost:11434
 > ```
 > De este modo, los agentes no requieren claves de OpenAI ni incurren en costos.

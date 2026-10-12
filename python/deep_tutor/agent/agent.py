@@ -37,7 +37,7 @@ def get_model():
     provider = os.getenv("MODEL_PROVIDER", "ollama").lower()
     if provider == "ollama":
         from langchain_ollama import ChatOllama
-        model_name = os.getenv("OLLAMA_MODEL", "qwen2.5:7b")
+        model_name = os.getenv("OLLAMA_MODEL", "gemma4:12b")
         base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
         return ChatOllama(model=model_name, base_url=base_url)
     elif provider == "anthropic":

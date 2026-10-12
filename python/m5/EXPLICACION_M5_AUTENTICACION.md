@@ -90,7 +90,7 @@ Este script demuestra:
 1. Autenticación de dos usuarios con diferentes roles (Alice: `admin`, Bob: `student`).
 2. Generación de un hilo protegido para Alice.
 3. El intento de acceso no autorizado de Bob siendo interceptado y bloqueado con un `403 Forbidden`.
-4. Respuestas contextualizadas generadas por el modelo local `qwen2.5:7b` reconociendo la identidad de cada usuario.
+4. Respuestas contextualizadas generadas por el modelo local `gemma4:12b` reconociendo la identidad de cada usuario.
 
 ### 5.2 Lecciones y Ejercicios Incluidos:
 - [`python/m5/l2/`](file:///home/juansebas7ian/Proyectos/GitHub/lca-deployment/python/m5/l2): Autenticación básica y ejercicio sobre por qué AuthN ≠ AuthZ.
