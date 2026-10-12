@@ -15,7 +15,8 @@ from dotenv import load_dotenv
 # Cargar variables de entorno
 load_dotenv(override=True)
 
-from langchain_core.messages import HumanMessage, SystemMessage
+from langchain_core.messages import BaseMessage, HumanMessage, SystemMessage
+from langchain_core.runnables import RunnableConfig
 from langchain_ollama import ChatOllama
 from langgraph.graph import END, START, MessagesState, StateGraph
 from langgraph.checkpoint.memory import MemorySaver
@@ -31,7 +32,7 @@ async def chatbot_node(state: MessagesState):
     return {"messages": [response]}
 
 # Construir el grafo
-workflow = StateGraph(MessagesState)
+workflow = StateGraph(MessagesState)  # type: ignore
 workflow.add_node("chatbot", chatbot_node)
 workflow.add_edge(START, "chatbot")
 workflow.add_edge("chatbot", END)
@@ -46,7 +47,7 @@ async def main():
     print("=" * 60)
 
     # 1. Hilo 1: Conversación inicial
-    thread_1_config = {"configurable": {"thread_id": "thread-1"}}
+    thread_1_config: RunnableConfig = {"configurable": {"thread_id": "thread-1"}}
     print("\n👉 [Thread 1] Mensaje 1: 'Hola, mi nombre es Sebastián y soy dev de IA.'")
     res1 = await app.ainvoke(
         {"messages": [HumanMessage(content="Hola, mi nombre es Sebastián y soy dev de IA.")]},
@@ -63,7 +64,7 @@ async def main():
     print(f"🤖 Agente: {res2['messages'][-1].content}\n")
 
     # 3. Hilo 2: Demostración de aislamiento (no debe saber quién es Sebastián)
-    thread_2_config = {"configurable": {"thread_id": "thread-2"}}
+    thread_2_config: RunnableConfig = {"configurable": {"thread_id": "thread-2"}}
     print("👉 [Thread 2 (Aislado)] Mensaje 1: '¿Cuál es mi nombre?'")
     res3 = await app.ainvoke(
         {"messages": [HumanMessage(content="¿Cuál es mi nombre?")]},
@@ -79,7 +80,7 @@ async def main():
         config=thread_1_config,
         stream_mode="messages",
     ):
-        if chunk.content:
+        if isinstance(chunk, BaseMessage) and chunk.content:
             print(chunk.content, end="", flush=True)
     print("\n\n✅ Demostración del Módulo 2 completada con éxito.")
 
